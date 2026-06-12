@@ -1,102 +1,15 @@
-Automação de Testes de API - ServeRest
-
-
-
-
-
-
-Visão geral do projeto
-
-Este projeto consiste em uma suíte de testes automatizados de API utilizando Python, Pytest e Requests, aplicada à API pública ServeRest.
-
-O objetivo é validar o comportamento dos endpoints de usuários e carrinhos, garantindo conformidade com regras de negócio, respostas esperadas e integridade dos dados.
-
-Objetivos dos testes
-Validar criação de usuários
-Garantir regra de email único
-Validar busca por ID
-Testar edição de usuários
-Validar exclusão com e sem dependências
-Garantir regras de negócio de carrinho
-Assegurar estrutura correta das respostas da API
-Tecnologias utilizadas
-Python 3.12+
-Pytest
-Requests
-UUID (dados dinâmicos)
-API ServeRest
-API utilizada
-
-ServeRest
-https://compassuol.serverest.dev
-
-Estrutura do projeto
-desafioSemana3/
+🚀 Automação de Testes de API - ServeRestProjeto de automação de testes voltado para a validação dos endpoints e regras de negócio da API pública ServeRest. A suíte cobre os fluxos principais de usuários, produtos e carrinhos, garantindo a integridade dos dados e a conformidade dos contratos da API.🌐 API UtilizadaServeRest: serverest.dev🛠️ Tecnologias UtilizadasPython 3.12+ — Linguagem base do projeto.Pytest — Framework de testes e gerenciamento de fixtures.Requests — Biblioteca HTTP para requisições na API.UUID — Geração de dados dinâmicos e únicos.📐 Estrutura do ProjetobashdesafioSemana3/
 │
 ├── src/
 │   ├── api/
-│   │   └── base.py              # Endpoints da API
+│   │   └── base.py              # Centralização dos endpoints da API
 │   ├── data/
-│   │   ├── usuariosData.py     # Massa de dados usuários
-│   │   └── produtosData.py     # Massa de dados produtos
+│   │   ├── usuariosData.py     # Massa de dados de usuários
+│   │   └── produtosData.py     # Massa de dados de produtos
 │
 ├── tests/
-│   ├── conftest.py             # Fixtures (usuário, carrinho, admin)
-│   └── test_usuarios.py        # Testes de usuários
+│   ├── conftest.py             # Fixtures reutilizáveis (user, carrinho, admin, autenticação)
+│   └── test_usuarios.py        # Casos de teste da API de usuários
 │
 └── README.md
-Instalação do ambiente
-1. Clonar o repositório
-git clone <URL_DO_REPOSITORIO>
-cd desafioSemana3
-2. Criar ambiente virtual
-python -m venv .venv
-3. Ativar ambiente virtual
-
-Windows:
-
-.venv\Scripts\activate
-
-Linux / Mac:
-
-source .venv/bin/activate
-4. Instalar dependências
-pip install pytest requests
-Execução dos testes
-
-Executar todos os testes:
-
-pytest
-
-Executar com saída detalhada:
-
-pytest -v
-
-Executar com prints (debug):
-
-pytest -v -s
-Cobertura de testes
-Usuários
-Cadastro de usuário com sucesso
-Cadastro com email duplicado
-Busca por ID válido
-Busca por ID inexistente
-Edição de usuário com sucesso
-Edição com email duplicado
-Exclusão de usuário com sucesso
-Exclusão de usuário com carrinho
-Carrinho
-Criação de carrinho com produto válido
-Validação de usuário autenticado
-Validação de produto existente
-Remoção de carrinho e limpeza de dados
-Estratégia de testes
-
-Este projeto segue boas práticas de automação de API:
-
-Dados dinâmicos com UUID para evitar conflitos
-Uso de fixtures para setup e teardown
-Testes independentes e isolados
-Validação de status code e contrato da resposta
-Uso de autenticação via token quando necessário
-Limpeza automática de dados criados nos testes
+Use o código com cuidado.🧪 Cobertura de Cenários (Test Cases)UsuáriosCadastro: Criação com sucesso e validação de bloqueio para e-mail duplicado.Busca: Consulta por ID válido e tratamento de erro para ID inexistente.Edição: Atualização de dados cadastrais e validação de conflito de e-mail duplicado.Exclusão: Remoção de usuário com sucesso e bloqueio de exclusão para usuários vinculados a carrinhos ativos.CarrinhoCriação: Associação de produto válido ao carrinho de um usuário autenticado.Regras de Negócio: Validação de token de autenticação e existência prévia do produto.Limpeza: Remoção do carrinho e desvinculação dos dados pós-teste.🎯 Estratégia de Testes e Boas PráticasSeparação de Responsabilidades: Divisão clara entre chamadas de API (src/api), massas de dados (src/data) e testes (tests).Isolamento Total: Os testes são independentes e não possuem ordem de dependência mútua.Dados Dinâmicos: Uso de UUID para gerar e-mails e dados únicos a cada execução, evitando falsos negativos por dados duplicados.Gerenciamento de Ciclo de Vida: Uso de fixtures do Pytest para setup (preparação) e teardown (limpeza e deleção automática de dados gerados).Validação Robusta: Verificação simultânea de Status Code, regras de negócio e estrutura do contrato JSON.🔮 Melhorias FuturasImplementação de pipeline de CI/CD via GitHub Actions.Geração de relatórios visuais utilizando Allure Reports.Refatoração para arquitetura de Service Layer dedicada por módulo.Separação de arquivos de teste por contexto (users, products, carts).Conteinerização do ambiente de testes utilizando Docker.👤 AutorJulia Pistori 
