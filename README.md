@@ -42,16 +42,48 @@ desafioSemana3/
 
 ## 🧪 Cobertura de Cenários (Test Cases)
 
-### Usuários
-* **Cadastro:** Criação com sucesso e validação de bloqueio para e-mail duplicado.
-* **Busca:** Consulta por ID válido e tratamento de erro para ID inexistente.
-* **Edição:** Atualização de dados cadastrais e validação de conflito de e-mail duplicado.
-* **Exclusão:** Remoção de usuário com sucesso e bloqueio de exclusão para usuários vinculados a carrinhos ativos.
+### 📋 Casos de Teste Detalhados
 
-### Carrinho
-* **Criação:** Associação de produto válido ao carrinho de um usuário autenticado.
-* **Regras de Negócio:** Validação de token de autenticação e existência prévia do produto.
-* **Limpeza:** Remoção do carrinho e desvinculação dos dados pós-teste.
+#### Caso 01 - Cadastro de usuário com sucesso
+* **Cenário:** Usuário cria conta com dados válidos.
+* **Resultado esperado:** Status code `201` e retorno do campo `_id`.
+
+#### Caso 02 - Cadastro com email duplicado
+* **Cenário:** Usuário tenta cadastrar email já existente.
+* **Resultado esperado:** Status code `400` e mensagem de erro explicativa.
+
+#### Caso 03 - Buscar usuário por ID existente
+* **Cenário:** Consulta de usuário válido no banco de dados.
+* **Resultado esperado:** Status code `200` e retorno com os dados do usuário.
+
+#### Caso 04 - Buscar usuário por ID inexistente
+* **Cenário:** Consulta de ID de usuário removido ou inválido.
+* **Resultado esperado:** Status code `400` e mensagem de erro correspondente.
+
+#### Caso 05 - Exclusão de usuário com sucesso
+* **Cenário:** Usuário sem dependências no sistema é removido.
+* **Resultado esperado:** Status code `200` e mensagem de sucesso.
+
+#### Caso 06 - Exclusão de usuário com carrinho cadastrado
+* **Cenário:** Usuário com carrinho ativo tenta ser excluído do sistema.
+* **Resultado esperado:** Status code `400` e retorno do `idCarrinho` vinculado.
+
+#### Caso 07 - Edição de usuário com sucesso
+* **Cenário:** Atualização de dados cadastrais de um usuário válido.
+* **Resultado esperado:** Status code `200` e mensagem de sucesso.
+
+#### Caso 08 - Edição com ID inexistente
+* **Cenário:** Atualização de dados de um usuário removido ou ID inválido.
+* **Resultado esperado:** Status code `201` (criação automática conforme comportamento nativo da API).
+
+#### Caso 09 - Edição com email já cadastrado
+* **Cenário:** Usuário tenta atualizar seus dados utilizando um email já existente no sistema.
+* **Resultado esperado:** Status code `400` e mensagem de erro.
+
+#### Caso 10 - Listagem de usuários
+* **Cenário:** Consulta geral de registros de usuários cadastrados.
+* **Resultado esperado:** Status code `200`, retorno da lista de usuários e contador de quantidade.
+
 
 ---
 
