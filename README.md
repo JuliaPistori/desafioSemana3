@@ -92,21 +92,9 @@ desafioSemana3/
 * **Separação de Responsabilidades:** Divisão clara entre chamadas de API (`src/api`), massas de dados (`src/data`) e testes (`tests`).
 * **Isolamento Total:** Os testes são independentes e não possuem ordem de dependência mútua.
 * **Dados Dinâmicos:** Uso de UUID para gerar e-mails e dados únicos a cada execução, evitando falsos negativos por dados duplicados.
-* **Gerenciamento de Ciclo de Vida:** Uso de fixtures do Pytest para `setup` (preparação) e `teardown` (limpeza e deleção automática de dados gerados).
-* **Validação Robusta:** Verificação simultânea de Status Code, regras de negócio e estrutura do contrato JSON.
-
----
-
-## 🔮 Melhorias Futuras
-
-* Implementação de pipeline de CI/CD via **GitHub Actions**.
-* Geração de relatórios visuais utilizando **Allure Reports**.
-* Refatoração para arquitetura de **Service Layer** dedicada por módulo.
-* Separação de arquivos de teste por contexto (users, products, carts).
-* Conteinerização do ambiente de testes utilizando **Docker**.
 
 ---
 
 ## 👤 Autor
 
-* **Julia Pistori** — Engenharia de Qualidade e Automação de Testes de API com Python e Pytest.
+* **Julia Pistori** 
