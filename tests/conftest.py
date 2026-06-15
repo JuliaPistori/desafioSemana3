@@ -43,15 +43,16 @@ def usuario_teste():
 @pytest.fixture
 def carrinho_teste():
 
-    admin = requests.post(ENDPOINT_USUARIOS, json=usuario_admin)
+    data_admin = usuario_admin()
+    admin = requests.post(ENDPOINT_USUARIOS, json=data_admin)
     id_admin = admin.json()["_id"]
-    email = usuario_admin["email"]
-    password = usuario_admin["password"]
+    email = data_admin["email"]
+    password = data_admin["password"]
     loginAdmin = requests.post(ENDPOINT_LOGIN, json={"email": email, "password": password})
     tokenAdmin = loginAdmin.json()["authorization"]
     headersAdmin = {"Authorization": tokenAdmin}
 
-    produto_teste = requests.post(ENDPOINT_PRODUTOS, json=produto, headers=headersAdmin)
+    produto_teste = requests.post(ENDPOINT_PRODUTOS, json=produto(), headers=headersAdmin)
     id_produto = produto_teste.json()["_id"]
     carrinho= {
   "produtos": [
@@ -61,10 +62,11 @@ def carrinho_teste():
     }
   ]
 }
-    usuario_carrinho = requests.post(ENDPOINT_USUARIOS, json= data_usuario)
+    data_usuario_carrinho = data_usuario()
+    usuario_carrinho = requests.post(ENDPOINT_USUARIOS, json=data_usuario_carrinho)
     id_usuario_carrinho = usuario_carrinho.json()["_id"]
-    email_carrinho = data_usuario["email"]
-    password_carrinho = data_usuario["password"]
+    email_carrinho = data_usuario_carrinho["email"]
+    password_carrinho = data_usuario_carrinho["password"]
     loginCarrinho = requests.post(ENDPOINT_LOGIN, json={"email":email_carrinho, "password":password_carrinho})
     tokenCarrinho = loginCarrinho.json()["authorization"]
     headersCarrinho = {"Authorization": tokenCarrinho}
@@ -73,7 +75,7 @@ def carrinho_teste():
 
     yield {
         "carrinho_id": id_carrinho,
-        "usuario_id": id_usuario_carrinho
+        "id_usuario_carrinho": id_usuario_carrinho
     }
 
     requests.delete(f"{ENDPOINT_PRODUTOS}/{id_produto}")
