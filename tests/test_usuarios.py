@@ -4,7 +4,7 @@ import requests
 from src.api.base import ENDPOINT_CARRINHOS
 from src.api.base import ENDPOINT_PRODUTOS
 from src.api.base import ENDPOINT_USUARIOS
-from src.data.usuariosData import data_usuario, data_usuario_2
+from src.data.usuariosData import data_usuario
 
 
 def test_listar_usuarios_retorna_estrutura_esperada_e_status_200():
