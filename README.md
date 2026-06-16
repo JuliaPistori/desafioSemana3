@@ -40,9 +40,11 @@ desafioSemana3/
 │   │   ├── usuariosData.py
 │   │   └── produtosData.py
 │   │
-│   └── helpers/
-│       ├── auth.py
-│       └── helpers_login.py
+│   └── schemas/
+│       ├── login_schema.py
+│       ├── produto_schema.py
+│       └── usuario_schema.py
+│
 │
 ├── tests/
 │   ├── conftest.py
@@ -158,6 +160,24 @@ A suíte foi construída seguindo os seguintes princípios:
 - Cobertura das principais regras de negócio da API.
 
 ---
+## 📋 Validação de Contrato com JSON Schema
+
+Como desafio extra, foram implementadas validações de contrato utilizando JSON Schema.
+
+Os seguintes endpoints possuem validação estrutural automatizada:
+
+- POST /login
+- GET /usuarios/{id}
+- GET /produtos/{id}
+
+As validações garantem:
+
+- Presença dos campos obrigatórios;
+- Tipagem correta dos dados;
+- Integridade do contrato da API;
+- Identificação de alterações indevidas na estrutura das respostas.
+
+---
 
 ## 📊 Cobertura de Testes
 
@@ -207,30 +227,29 @@ Apesar da cobertura total do código analisado, alguns cenários permaneceram fo
 A priorização foi realizada considerando risco, valor de negócio e prazo disponível para entrega.
 
 ---
+## ⚙️ Integração Contínua
 
-## 🐞 Bug Identificado
+O projeto utiliza **GitHub Actions** para execução automática da suíte de testes.
 
-### BUG-001 – Cadastro de usuário aceita caracteres especiais no nome
+A cada:
 
-#### Descrição
+- Push
+- Pull Request
 
-Foi identificado que a API permite o cadastro de usuários contendo caracteres especiais no campo `nome`, comportamento considerado inconsistente com a regra de validação esperada para nomes de usuários.
+o pipeline executa:
 
-#### Evidência
+- Instalação das dependências;
+- Execução da suíte de testes;
+- Cálculo da cobertura de testes.
 
-O cenário foi implementado utilizando:
+Arquivo de configuração:
 
-```python
-@pytest.mark.xfail(reason="BUG-001: API aceita caracteres especiais no nome")
+```text
+.github/workflows/testes.yml
 ```
 
-permitindo registrar o comportamento observado sem comprometer a execução da suíte.
-
-#### Severidade
-
-Média.
-
 ---
+
 
 ## ▶️ Como Executar o Projeto
 
@@ -283,8 +302,11 @@ pytest --cov=src --cov-report=term-missing
 ## 📋 Resultados da Última Execução
 
 ```text
-40 passed
-1 xfailed
+- 40 testes aprovados
+- 1 teste marcado como xfail (bug conhecido)
+- Cobertura de código: 100%
+- Validação de contrato com JSON Schema
+- Integração contínua com GitHub Actions
 ```
 
 A suíte executou com sucesso todos os cenários implementados.

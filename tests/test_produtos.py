@@ -4,6 +4,8 @@ import requests
 from src.api.base import ENDPOINT_CARRINHOS
 from src.api.base import ENDPOINT_PRODUTOS
 from src.api.base import ENDPOINT_USUARIOS
+from jsonschema import validate
+from src.schemas.produto_schema import produto_schema
 from src.data.usuariosData import data_usuario
 from src.data.produtosData import produto
 
@@ -80,6 +82,8 @@ def test_buscar_produto_com_id_encontrado_retorna_estrutura_esperada_e_status_20
     response = requests.get(f"{ENDPOINT_PRODUTOS}/{produto_teste['id_produto']}")
 
     assert response.status_code == 200
+    validate(instance=response.json(), schema=produto_schema
+)
     body = response.json()
     assert "nome" in body
     assert "preco" in body

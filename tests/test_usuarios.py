@@ -4,6 +4,8 @@ import requests
 from src.api.base import ENDPOINT_CARRINHOS
 from src.api.base import ENDPOINT_PRODUTOS
 from src.api.base import ENDPOINT_USUARIOS
+from jsonschema import validate
+from src.schemas.usuario_schema import usuario_schema
 from src.data.usuariosData import data_usuario
 from src.data.usuariosData import data_usuario_nome_vazio
 from src.data.usuariosData import data_usuario_nome_invalido
@@ -87,6 +89,8 @@ def test_buscar_usuario_por_id_usuario_encontrado_retorna_estrutura_esperada_e_s
     response = requests.get(f"{ENDPOINT_USUARIOS}/{usuario_teste['id']}")
 
     assert response.status_code == 200
+    validate(instance=response.json(), schema=usuario_schema
+)
     body = response.json()
     assert "nome" in body
     assert "email" in body

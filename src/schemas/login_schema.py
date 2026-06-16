@@ -1,0 +1,11 @@
+login_schema = {
+    "type": "object",
+    "properties": {
+        "message": {"type": "string"},
+        "authorization": {"type": "string"}
+    },
+    "required": [
+        "message",
+        "authorization"
+    ]
+}

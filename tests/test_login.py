@@ -2,6 +2,8 @@ import pytest
 import requests
 
 from src.api.base import ENDPOINT_LOGIN
+from jsonschema import validate
+from src.schemas.login_schema import login_schema
 from src.helpers.helpers_login import criar_email
 
 def test_realizar_login_com_dados_validos_retorna_estrutura_esperada_e_status_200(usuario_teste):
@@ -11,6 +13,8 @@ def test_realizar_login_com_dados_validos_retorna_estrutura_esperada_e_status_20
     response = requests.post(ENDPOINT_LOGIN, json = {"email": email_login, "password": senha_login})
 
     assert response.status_code == 200
+    validate( instance=response.json(), schema=login_schema
+)
     body = response.json()
     assert "message" in body
     assert "authorization" in body
