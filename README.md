@@ -1,21 +1,28 @@
 # 🚀 Automação de Testes de API - ServeRest
 
-Projeto de automação de testes voltado para a validação dos endpoints e regras de negócio da API pública ServeRest. A suíte cobre os fluxos principais de usuários, produtos e carrinhos, garantindo a integridade dos dados e a conformidade dos contratos da API.
+Projeto de automação de testes desenvolvido para validação dos principais fluxos e regras de negócio da API pública ServeRest.
+
+A suíte contempla testes automatizados dos endpoints de Usuários, Login e Produtos, cobrindo cenários positivos, negativos, autenticação, autorização e validações de regras de negócio.
 
 ---
 
 ## 🌐 API Utilizada
 
-* **ServeRest:** [https://serverest.dev](https://serverest.dev)
+**ServeRest**
+
+https://serverest.dev
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Python 3.12+** — Linguagem base do projeto.
-* **Pytest** — Framework de testes e gerenciamento de fixtures.
-* **Requests** — Biblioteca HTTP para requisições na API.
-* **UUID** — Geração de dados dinâmicos e únicos.
+- Python 3.13+
+- Pytest
+- Requests
+- Pytest-Cov
+- UUID
+- Git
+- GitHub
 
 ---
 
@@ -26,75 +33,273 @@ desafioSemana3/
 │
 ├── src/
 │   ├── api/
-│   │   └── base.py              # Centralização dos endpoints da API
-│   └── data/
-│       ├── usuariosData.py      # Massa de dados de usuários
-│       └── produtosData.py      # Massa de dados de produtos
+│   │   ├── base.py
+│   │   └── usuarios_api.py
+│   │
+│   ├── data/
+│   │   ├── usuariosData.py
+│   │   └── produtosData.py
+│   │
+│   └── helpers/
+│       ├── auth.py
+│       └── helpers_login.py
 │
 ├── tests/
-│   ├── conftest.py              # Fixtures reutilizáveis (user, carrinho, admin, autenticação)
-│   └── test_usuarios.py         # Casos de teste da API de usuários
+│   ├── conftest.py
+│   ├── test_usuarios.py
+│   ├── test_login.py
+│   └── test_produtos.py
 │
-└── README.md
+├── README.md
+└── PLANO-DE-TESTES.md
 ```
 
 ---
 
-## 🧪 Cobertura de Cenários (Test Cases)
+## 🧪 Escopo da Automação
 
-### 📋 Casos de Teste Detalhados
+### Usuários
 
-#### Caso 01 - Cadastro de usuário com sucesso
-* **Cenário:** Usuário cria conta com dados válidos.
-* **Resultado esperado:** Status code `201` e retorno do campo `_id`.
+#### GET /usuarios
 
-#### Caso 02 - Cadastro com email duplicado
-* **Cenário:** Usuário tenta cadastrar email já existente.
-* **Resultado esperado:** Status code `400` e mensagem de erro explicativa.
+- Listar usuários com sucesso;
+- Filtrar usuário por e-mail.
 
-#### Caso 03 - Buscar usuário por ID existente
-* **Cenário:** Consulta de usuário válido no banco de dados.
-* **Resultado esperado:** Status code `200` e retorno com os dados do usuário.
+#### POST /usuarios
 
-#### Caso 04 - Buscar usuário por ID inexistente
-* **Cenário:** Consulta de ID de usuário removido ou inválido.
-* **Resultado esperado:** Status code `400` e mensagem de erro correspondente.
+- Cadastrar usuário com sucesso;
+- Impedir cadastro com e-mail já utilizado;
+- Impedir cadastro com nome vazio;
+- Impedir cadastro com e-mail vazio;
+- Impedir cadastro com senha vazia;
+- Validar comportamento para nome com caracteres especiais (bug conhecido).
 
-#### Caso 05 - Exclusão de usuário com sucesso
-* **Cenário:** Usuário sem dependências no sistema é removido.
-* **Resultado esperado:** Status code `200` e mensagem de sucesso.
+#### GET /usuarios/{id}
 
-#### Caso 06 - Exclusão de usuário com carrinho cadastrado
-* **Cenário:** Usuário com carrinho ativo tenta ser excluído do sistema.
-* **Resultado esperado:** Status code `400` e retorno do `idCarrinho` vinculado.
+- Buscar usuário existente;
+- Buscar usuário inexistente.
 
-#### Caso 07 - Edição de usuário com sucesso
-* **Cenário:** Atualização de dados cadastrais de um usuário válido.
-* **Resultado esperado:** Status code `200` e mensagem de sucesso.
+#### DELETE /usuarios/{id}
 
-#### Caso 08 - Edição com ID inexistente
-* **Cenário:** Atualização de dados de um usuário removido ou ID inválido.
-* **Resultado esperado:** Status code `201` (criação automática conforme comportamento nativo da API).
+- Excluir usuário com sucesso;
+- Excluir usuário inexistente;
+- Impedir exclusão de usuário com carrinho cadastrado.
 
-#### Caso 09 - Edição com email já cadastrado
-* **Cenário:** Usuário tenta atualizar seus dados utilizando um email já existente no sistema.
-* **Resultado esperado:** Status code `400` e mensagem de erro.
+#### PUT /usuarios/{id}
 
-#### Caso 10 - Listagem de usuários
-* **Cenário:** Consulta geral de registros de usuários cadastrados.
-* **Resultado esperado:** Status code `200`, retorno da lista de usuários e contador de quantidade.
-
+- Alterar usuário existente;
+- Cadastrar usuário ao informar ID inexistente;
+- Impedir alteração utilizando e-mail já cadastrado.
 
 ---
 
-## 🎯 Estratégia de Testes e Boas Práticas
+### Login
 
-* **Separação de Responsabilidades:** Divisão clara entre chamadas de API (`src/api`), massas de dados (`src/data`) e testes (`tests`).
-* **Isolamento Total:** Os testes são independentes e não possuem ordem de dependência mútua.
-* **Dados Dinâmicos:** Uso de UUID para gerar e-mails e dados únicos a cada execução, evitando falsos negativos por dados duplicados.
+#### POST /login
+
+- Realizar login com sucesso;
+- Impedir login com senha inválida;
+- Impedir login com e-mail inexistente;
+- Impedir login com senha vazia;
+- Impedir login com campos obrigatórios vazios.
+
+---
+
+### Produtos
+
+#### GET /produtos
+
+- Listar produtos com sucesso;
+- Filtrar produto por nome;
+- Filtrar produto por preço.
+
+#### POST /produtos
+
+- Cadastrar produto com usuário administrador;
+- Impedir cadastro de produto com nome já utilizado;
+- Impedir cadastro de produto com nome vazio;
+- Impedir cadastro sem token de autenticação;
+- Impedir cadastro utilizando usuário não administrador.
+
+#### GET /produtos/{id}
+
+- Buscar produto existente;
+- Buscar produto inexistente.
+
+#### DELETE /produtos/{id}
+
+- Excluir produto com sucesso;
+- Excluir produto inexistente;
+- Impedir exclusão sem token de autenticação;
+- Impedir exclusão utilizando usuário não administrador;
+- Impedir exclusão de produto presente em carrinho.
+
+#### PUT /produtos/{id}
+
+- Alterar produto existente;
+- Cadastrar produto ao informar ID inexistente;
+- Impedir alteração utilizando nome já cadastrado;
+- Impedir alteração sem token de autenticação;
+- Impedir alteração utilizando usuário não administrador.
+
+---
+
+## 🎯 Estratégia de Testes
+
+A suíte foi construída seguindo os seguintes princípios:
+
+- Independência entre os testes;
+- Reutilização através de fixtures;
+- Limpeza automática dos dados criados;
+- Dados dinâmicos utilizando UUID;
+- Validação de status codes HTTP;
+- Validação da estrutura das respostas;
+- Cobertura de cenários positivos e negativos;
+- Cobertura das principais regras de negócio da API.
+
+---
+
+## 📊 Cobertura de Testes
+
+### Método utilizado
+
+A cobertura foi calculada utilizando o plugin **pytest-cov**, conforme a abordagem descrita no artigo:
+
+https://medium.com/revista-dtar/como-verificar-a-cobertura-de-testes-da-api-rest-9e2f745564b
+
+Comando utilizado:
+
+```bash
+pytest --cov=src --cov-report=term-missing
+```
+
+### Resultado obtido
+
+```text
+Name                           Stmts   Miss  Cover
+--------------------------------------------------
+src/api/base.py                    5      0   100%
+src/api/usuarios_api.py           23      0   100%
+src/data/produtosData.py           3      0   100%
+src/data/usuariosData.py          13      0   100%
+src/helpers/helpers_login.py       3      0   100%
+--------------------------------------------------
+TOTAL                             47      0   100%
+```
+
+### Cobertura total atingida
+
+**100% de cobertura do código da suíte automatizada.**
+
+Foram cobertas todas as linhas dos módulos avaliados pelo relatório de cobertura.
+
+### Cenários fora do escopo
+
+Apesar da cobertura total do código analisado, alguns cenários permaneceram fora do escopo desta entrega:
+
+- Testes de performance;
+- Testes de carga;
+- Testes de segurança;
+- Testes de concorrência;
+- Validação da expiração de token;
+- Alguns filtros secundários disponibilizados pela API.
+
+A priorização foi realizada considerando risco, valor de negócio e prazo disponível para entrega.
+
+---
+
+## 🐞 Bug Identificado
+
+### BUG-001 – Cadastro de usuário aceita caracteres especiais no nome
+
+#### Descrição
+
+Foi identificado que a API permite o cadastro de usuários contendo caracteres especiais no campo `nome`, comportamento considerado inconsistente com a regra de validação esperada para nomes de usuários.
+
+#### Evidência
+
+O cenário foi implementado utilizando:
+
+```python
+@pytest.mark.xfail(reason="BUG-001: API aceita caracteres especiais no nome")
+```
+
+permitindo registrar o comportamento observado sem comprometer a execução da suíte.
+
+#### Severidade
+
+Média.
+
+---
+
+## ▶️ Como Executar o Projeto
+
+### 1. Clonar o repositório
+
+```bash
+git clone <url-do-repositorio>
+```
+
+### 2. Acessar a pasta do projeto
+
+```bash
+cd desafioSemana3
+```
+
+### 3. Criar ambiente virtual
+
+```bash
+python -m venv .venv
+```
+
+### 4. Ativar ambiente virtual
+
+Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+### 5. Instalar dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+### 6. Executar todos os testes
+
+```bash
+pytest
+```
+
+### 7. Executar testes com relatório de cobertura
+
+```bash
+pytest --cov=src --cov-report=term-missing
+```
+
+---
+
+## 📋 Resultados da Última Execução
+
+```text
+40 passed
+1 xfailed
+```
+
+A suíte executou com sucesso todos os cenários implementados.
+
+O cenário marcado como **xfail** corresponde ao bug conhecido documentado neste projeto.
+
+---
+
+## 📄 Documentação Complementar
+
+- `PLANO-DE-TESTES.md` — Planejamento da estratégia de testes.
+- `README.md` — Documentação técnica e instruções de execução.
 
 ---
 
 ## 👤 Autor
 
-* **Julia Pistori** 
+**Julia Pistori**

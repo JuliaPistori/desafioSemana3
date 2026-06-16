@@ -12,12 +12,12 @@ Serão executados testes automatizados de API diretamente nos endpoints disponib
 
 A estratégia adotada contempla:
 
-* validação de cenários positivos e negativos;
-* verificação dos códigos de status HTTP;
-* validação da estrutura das respostas;
-* validação das principais regras de negócio descritas na documentação da API;
-* utilização de fixtures para criação e limpeza de dados;
-* independência entre os testes.
+- validação de cenários positivos e negativos;
+- verificação dos códigos de status HTTP;
+- validação da estrutura das respostas;
+- validação das principais regras de negócio descritas na documentação da API;
+- utilização de fixtures para criação e limpeza de dados;
+- independência entre os testes.
 
 A priorização dos cenários foi baseada no impacto para o negócio, risco associado e prazo disponível para entrega.
 
@@ -27,148 +27,142 @@ A priorização dos cenários foi baseada no impacto para o negócio, risco asso
 
 ### Em escopo nesta entrega
 
-* Funcionalidades relacionadas aos endpoints de Usuários;
-* Funcionalidades relacionadas ao endpoint de Login;
-* Funcionalidades relacionadas aos endpoints de Produtos;
-* Regras de autenticação e autorização;
-* Tratamento dos principais cenários de erro previstos na documentação.
+- Funcionalidades relacionadas aos endpoints de Usuários;
+- Funcionalidades relacionadas ao endpoint de Login;
+- Funcionalidades relacionadas aos endpoints de Produtos;
+- Regras de autenticação e autorização;
+- Tratamento dos principais cenários de erro previstos na documentação.
 
 ### Fora do escopo nesta entrega
 
 Não serão contemplados:
 
-* testes de performance;
-* testes de carga;
-* testes de segurança;
-* testes de interface gráfica;
-* testes de concorrência;
-* validação de expiração do token de autenticação;
-* automação de cenários classificados como baixa prioridade.
+- testes de performance;
+- testes de carga;
+- testes de segurança;
+- testes de interface gráfica;
+- testes de concorrência;
+- validação de expiração do token de autenticação;
+- automação de cenários classificados como baixa prioridade.
 
 ---
 
-## Cenários Planejados
+## Cenários Implementados
 
 ### Usuários
 
-#### Alta prioridade
+#### GET /usuarios
 
-GET /usuarios
+- Listar usuários com sucesso;
+- Filtrar usuário por e-mail.
 
-* Listar usuários com sucesso.
+#### POST /usuarios
 
-POST /usuarios
+- Cadastrar usuário com sucesso;
+- Impedir cadastro com e-mail já utilizado;
+- Impedir cadastro com nome vazio;
+- Impedir cadastro com e-mail vazio;
+- Impedir cadastro com senha vazia;
+- Validar comportamento com nome contendo caracteres especiais (BUG-001).
 
-* Cadastrar usuário com sucesso;
-* Impedir cadastro com e-mail já utilizado.
+#### GET /usuarios/{id}
 
-GET /usuarios/{id}
+- Buscar usuário existente;
+- Buscar usuário inexistente.
 
-* Buscar usuário existente;
-* Buscar usuário inexistente.
+#### DELETE /usuarios/{id}
 
-DELETE /usuarios/{id}
+- Excluir usuário com sucesso;
+- Tentar excluir usuário inexistente;
+- Impedir exclusão de usuário com carrinho cadastrado.
 
-* Excluir usuário com sucesso;
-* Tentar excluir usuário inexistente;
-* Impedir exclusão de usuário com carrinho cadastrado.
+#### PUT /usuarios/{id}
 
-PUT /usuarios/{id}
-
-* Alterar usuário existente;
-* Cadastrar usuário ao informar ID inexistente;
-* Impedir alteração utilizando e-mail já cadastrado.
-
-#### Média prioridade
-
-GET /usuarios com filtros
-
-* Filtrar usuário por e-mail;
-* Filtrar usuários administradores.
-
-#### Baixa prioridade (não implementados nesta entrega)
-
-GET /usuarios com filtros
-
-* Filtrar por nome;
-* Filtrar por senha;
-* Filtrar por ID.
+- Alterar usuário existente;
+- Cadastrar usuário ao informar ID inexistente;
+- Impedir alteração utilizando e-mail já cadastrado.
 
 ---
 
 ### Login
 
-#### Alta prioridade
+#### POST /login
 
-POST /login
-
-* Realizar login com sucesso;
-* Impedir login com senha inválida.
-
-#### Média prioridade
-
-POST /login
-
-* Impedir login com e-mail inexistente;
-* Impedir login com campos vazios.
-
-#### Baixa prioridade (não implementados nesta entrega)
-
-POST /login
-
-* Validar comportamento com token expirado.
+- Realizar login com sucesso;
+- Impedir login com senha inválida;
+- Impedir login com e-mail inexistente;
+- Impedir login com senha vazia;
+- Impedir login com campos obrigatórios vazios.
 
 ---
 
 ### Produtos
 
-#### Alta prioridade
+#### GET /produtos
 
-GET /produtos
+- Listar produtos com sucesso;
+- Filtrar produto por nome;
+- Filtrar produto por preço.
 
-* Listar produtos com sucesso.
+#### POST /produtos
 
-POST /produtos
+- Cadastrar produto com usuário administrador;
+- Impedir cadastro de produto com nome já utilizado;
+- Impedir cadastro de produto com nome vazio;
+- Impedir cadastro sem token de autenticação;
+- Impedir cadastro utilizando usuário não administrador.
 
-* Cadastrar produto com usuário administrador;
-* Impedir cadastro de produto com nome já utilizado;
-* Impedir cadastro sem token de autenticação;
-* Impedir cadastro utilizando usuário não administrador.
+#### GET /produtos/{id}
 
-GET /produtos/{id}
+- Buscar produto existente;
+- Buscar produto inexistente.
 
-* Buscar produto existente;
-* Buscar produto inexistente.
+#### DELETE /produtos/{id}
 
-DELETE /produtos/{id}
+- Excluir produto com sucesso;
+- Excluir produto inexistente;
+- Impedir exclusão sem token de autenticação;
+- Impedir exclusão utilizando usuário não administrador;
+- Impedir exclusão de produto presente em carrinho.
 
-* Excluir produto com sucesso;
-* Impedir exclusão de produto presente em carrinho;
-* Impedir exclusão sem token;
-* Impedir exclusão utilizando usuário não administrador.
+#### PUT /produtos/{id}
 
-PUT /produtos/{id}
+- Alterar produto existente;
+- Cadastrar produto ao informar ID inexistente;
+- Impedir alteração utilizando nome já cadastrado;
+- Impedir alteração sem token de autenticação;
+- Impedir alteração utilizando usuário não administrador.
 
-* Alterar produto existente;
-* Cadastrar produto ao informar ID inexistente;
-* Impedir alteração utilizando nome já cadastrado;
-* Impedir alteração sem token;
-* Impedir alteração utilizando usuário não administrador.
+---
 
-#### Média prioridade
+## Cenários Não Implementados
 
-GET /produtos com filtros
+### Usuários
 
-* Filtrar produto por nome;
-* Filtrar produto por preço.
+#### GET /usuarios com filtros
 
-#### Baixa prioridade (não implementados nesta entrega)
+- Filtrar por nome;
+- Filtrar por senha;
+- Filtrar por ID;
+- Filtrar usuários administradores.
 
-GET /produtos com filtros
+---
 
-* Filtrar produto por descrição;
-* Filtrar produto por quantidade;
-* Filtrar produto por ID.
+### Produtos
+
+#### GET /produtos com filtros
+
+- Filtrar por descrição;
+- Filtrar por quantidade;
+- Filtrar por ID.
+
+---
+
+### Login
+
+#### POST /login
+
+- Validar comportamento com token expirado.
 
 ---
 
@@ -176,13 +170,13 @@ GET /produtos com filtros
 
 Um cenário será considerado concluído quando:
 
-* executar com sucesso individualmente;
-* executar com sucesso em conjunto com os demais testes;
-* validar o código de status esperado;
-* validar as informações relevantes da resposta;
-* respeitar as regras de negócio previstas na documentação;
-* não depender da ordem de execução dos testes;
-* realizar a limpeza dos dados criados durante sua execução, quando aplicável.
+- executar com sucesso individualmente;
+- executar com sucesso em conjunto com os demais testes;
+- validar o código de status esperado;
+- validar as informações relevantes da resposta;
+- respeitar as regras de negócio previstas na documentação;
+- não depender da ordem de execução dos testes;
+- realizar a limpeza dos dados criados durante sua execução, quando aplicável.
 
 ---
 
@@ -191,3 +185,5 @@ Um cenário será considerado concluído quando:
 Este plano poderá ser atualizado conforme a evolução da suíte, identificação de novos riscos ou descoberta de comportamentos inesperados da API.
 
 Durante a execução dos testes, eventuais defeitos identificados serão registrados formalmente como bug reports no repositório do projeto.
+
+A suíte foi desenvolvida utilizando Python, Pytest e Requests, seguindo princípios de reutilização de código através de fixtures e funções auxiliares para autenticação e preparação de dados.
