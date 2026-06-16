@@ -5,6 +5,10 @@ from src.api.base import ENDPOINT_CARRINHOS
 from src.api.base import ENDPOINT_PRODUTOS
 from src.api.base import ENDPOINT_USUARIOS
 from src.data.usuariosData import data_usuario
+from src.data.usuariosData import data_usuario_nome_vazio
+from src.data.usuariosData import data_usuario_nome_invalido
+from src.data.usuariosData import data_usuario_email_vazio
+from src.data.usuariosData import data_usuario_senha_vazia
 
 
 def test_listar_usuarios_retorna_estrutura_esperada_e_status_200():
@@ -39,11 +43,42 @@ def test_cadastrar_usuario_com_sucesso_retorna_estrutura_esperada_e_status_201()
     id_usuario = body["_id"]
     requests.delete(f"{ENDPOINT_USUARIOS}/{id_usuario}")
 
+def test_cadastrar_usuario_com_campo_senha_vazio_retorna_status_400():
+
+    response = requests.post(ENDPOINT_USUARIOS, json=data_usuario_senha_vazia())
+
+    assert response.status_code == 400
+    body = response.json()
+    assert "password" in body
+
+def test_cadastrar_usuario_com_campo_email_vazio_retorna_status_400():
+
+    response = requests.post(ENDPOINT_USUARIOS, json=data_usuario_email_vazio())
+
+    assert response.status_code == 400
+    body = response.json()
+    assert "email" in body  
+
+def test_cadastrar_usuario_com_campo_nome_vazio_retorna_status_400():
+
+    response = requests.post(ENDPOINT_USUARIOS, json=data_usuario_nome_vazio())
+
+    assert response.status_code == 400
+    body = response.json()
+    assert "nome" in body
+
+@pytest.mark.xfail(reason="BUG-001: API aceita caracteres especiais no nome")
+def test_cadastrar_usuario_com_nome_invalido_retorna_status_400():
+
+    response = requests.post(ENDPOINT_USUARIOS, json=data_usuario_nome_invalido())
+
+    assert response.status_code == 400
+
 def test_cadastrar_usuario_com_email_ja_cadastrado_retorna_estrutura_esperada_e_status_400(usuario_teste):
 
     response = requests.post(ENDPOINT_USUARIOS, json=usuario_teste["data"])
 
-    assert response.status_code == 400
+    assert response.status_code == 400, response.text
     body = response.json()
     assert "message" in body
 

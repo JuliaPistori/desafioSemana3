@@ -27,7 +27,14 @@ def test_realizar_login_com_a_senha_incorreta_retorna_estrutura_esperada_e_statu
     assert "message" in body
     assert body["message"] == "Email e/ou senha inválidos"
 
-def test_realizar_login_com_o_email_incorreto_retorna_estrutura_esperada_e_status_401(usuario_test):
+def test_realizar_login_com_o_campo_senha_vazio_retorna_status_400(usuario_teste):
+
+    email_login = usuario_teste["data"]["email"]
+    response = requests.post(ENDPOINT_LOGIN, json= {"email": email_login, "password": ""})
+
+    assert response.status_code == 400
+
+def test_realizar_login_com_o_email_incorreto_retorna_estrutura_esperada_e_status_401(usuario_teste):
 
     senha_login = usuario_teste["data"]["password"]
     response = requests.post(ENDPOINT_LOGIN, json= {"email": criar_email(), "password": senha_login})
@@ -42,4 +49,3 @@ def test_realizar_login_com_campos_vazios_retorna_status_400():
     response = requests.post(ENDPOINT_LOGIN, json= {"email": None , "password": None})
 
     assert response.status_code == 400 
-
