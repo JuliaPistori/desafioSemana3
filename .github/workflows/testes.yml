@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - master
-
   pull_request:
     branches:
       - main
@@ -29,6 +28,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Executar testes
+      - name: Configurar Node.js (Para instalar o ServeRest Local)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Iniciar o ServeRest Localmente
+        run: |
+          npm install -g serverest
+          serverest &
+          echo "Aguardando inicialização da API..."
+          sleep 5
+
+      - name: Executar testes com Pytest e Cobertura
         run: |
           pytest -v --cov=. --cov-report=term

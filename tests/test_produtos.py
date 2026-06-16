@@ -82,8 +82,7 @@ def test_buscar_produto_com_id_encontrado_retorna_estrutura_esperada_e_status_20
     response = requests.get(f"{ENDPOINT_PRODUTOS}/{produto_teste['id_produto']}")
 
     assert response.status_code == 200
-    validate(instance=response.json(), schema=produto_schema
-)
+    validate(instance=response.json(), schema=produto_schema)
     body = response.json()
     assert "nome" in body
     assert "preco" in body
