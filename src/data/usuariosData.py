@@ -18,6 +18,7 @@ def data_usuario_senha_vazia():
         "administrador": "false"
     }
 
+
 def data_usuario_nome_vazio():
     return {
         "nome": "",
@@ -26,6 +27,7 @@ def data_usuario_nome_vazio():
         "administrador": "false"
     }
 
+
 def data_usuario_nome_invalido():
     return {
         "nome": "@!#$",
@@ -33,6 +35,7 @@ def data_usuario_nome_invalido():
         "password": "123456A@",
         "administrador": "false"
     }
+
 
 def data_usuario_email_vazio():
     return {
@@ -50,3 +53,7 @@ def usuario_admin():
         "password": "123456A@",
         "administrador": "true"
     }
+
+
+def email_invalido():
+    return f"errado_{uuid.uuid4()}@email.com"

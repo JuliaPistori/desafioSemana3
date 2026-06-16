@@ -1,4 +1,1 @@
-import uuid
-
-def criar_email():
-    return f"errado_{uuid.uuid4()}@email.com"
+from src.data.usuariosData import email_invalido as criar_email
