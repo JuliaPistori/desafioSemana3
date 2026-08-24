@@ -9,11 +9,12 @@ A suíte contempla testes automatizados dos endpoints de Usuários, Login e Prod
 ## 🛠️ Tecnologias Utilizadas
 
 <div>
-  <img src="https://img.shields.io/badge/python-3.13%2B-3776AB" alt="Python" />
-  <img src="https://shields.io" alt="Pytest" />
-  <img src="https://shields.io" alt="GitHub Actions" />
-  <img src="https://shields.io" alt="JSON Schema" />
-  <img src="https://shields.io" alt="Git" />
+  <img src="https://img.shields.io/badge/Python-3.13%2B-3776AB?logo=python" alt="Python" />
+  <img src="https://img.shields.io/badge/Pytest-0A9EDC?logo=pytest" alt="Pytest" />
+  <img src="https://img.shields.io/badge/Requests-3776AB?logo=python" alt="Requests" />
+  <img src="https://img.shields.io/badge/GitHub-181717?logo=github" alt="GitHub Actions" />
+  <img src="https://img.shields.io/badge/JSON_Schema-323232?logo=jsonschema" alt="JSON Schema" />
+  <img src="https://img.shields.io/badge/Git-F05032?logo=git" alt="Git" />
 </div>
 
 ---
