@@ -253,13 +253,13 @@ Arquivo de configuração:
 ### 1. Clonar o repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/JuliaPistori/pytest-api-testing-serve-rest.git
 ```
 
 ### 2. Acessar a pasta do projeto
 
 ```bash
-cd desafioSemana3
+cd pytest-api-testing-serve-rest
 ```
 
 ### 3. Criar ambiente virtual
