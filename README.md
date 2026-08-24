@@ -1,16 +1,24 @@
 # 🚀 Automação de Testes de API - ServeRest
 
-Projeto de automação de testes desenvolvido para validação dos principais fluxos e regras de negócio da API pública ServeRest.
+Projeto de automação de testes robusto e de alta cobertura, desenvolvido para validação dos principais fluxos, contratos e regras de negócio da API pública ServeRest.
 
 A suíte contempla testes automatizados dos endpoints de Usuários, Login e Produtos, cobrindo cenários positivos, negativos, autenticação, autorização e validações de regras de negócio.
 
 ---
 
-## 🌐 API Utilizada
+## 🛠️ Tecnologias Utilizadas
 
-**ServeRest**
+<div>
+  <img src="https://shields.io" alt="Python" />
+  <img src="https://shields.io" alt="Pytest" />
+  <img src="https://shields.io" alt="GitHub Actions" />
+  <img src="https://shields.io" alt="JSON Schema" />
+  <img src="https://shields.io" alt="Git" />
+</div>
 
-https://serverest.dev
+---
+
+## 🌐 **API Utilizada:** [ServeRest (serverest.dev)](https://serverest.dev)
 
 ---
 
