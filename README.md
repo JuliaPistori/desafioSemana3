@@ -23,18 +23,6 @@ A suíte contempla testes automatizados dos endpoints de Usuários, Login e Prod
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
-
-- Python 3.13+
-- Pytest
-- Requests
-- Pytest-Cov
-- UUID
-- Git
-- GitHub
-
----
-
 ## 📐 Estrutura do Projeto
 
 ```text
